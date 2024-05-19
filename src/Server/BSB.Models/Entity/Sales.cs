@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BSB.Models.Entity;
 
@@ -11,10 +6,10 @@ namespace BSB.Models.Entity;
 public class Sales : EntityBase
 {
     [ForeignKey("ProductId")]
-    public virtual Product Product { get; set; }
+    public virtual Product? Product { get; set; }
     [ForeignKey("SalespersonId")]
-    public virtual Salesperson Salesperson { get;set; }
+    public virtual Salesperson? Salesperson { get; set; }
     [ForeignKey("CustomerId")]
-    public virtual Customer Customer { get;set; }
+    public virtual Customer? Customer { get; set; }
     public DateTimeOffset SalesDate { get; set; }
 }

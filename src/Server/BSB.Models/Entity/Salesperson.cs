@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BSB.Models.Entity;
 
@@ -17,6 +12,6 @@ public class Salesperson : EntityBase
     public DateTimeOffset StartDate { get; set; }
     public DateTimeOffset TerminationDate { get; set; }
     [ForeignKey("ManagerId")]
-    public virtual Salesperson Manager { get; set; }
+    public virtual Salesperson? Manager { get; set; }
     public ICollection<Sales> Sales { get; set; }
 }

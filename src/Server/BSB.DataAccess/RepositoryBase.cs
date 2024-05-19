@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace BSB.DataAccess;
 
-public abstract class RepositoryBase<T> : IRepositoryBase<T> 
+public abstract class RepositoryBase<T> : IRepositoryBase<T>
     where T : EntityBase
 {
     protected BSBDbContext RepositoryContext { get; set; }

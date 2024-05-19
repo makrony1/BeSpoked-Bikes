@@ -17,39 +17,42 @@ namespace BSB.Controllers
             this.customerService = customerService;
         }
 
-    
+
         // GET: api/<CustomerController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAsync()
         {
-            return new string[] { "value1", "value2" };
+            var customerResponse = await this.customerService.GetCustomersAsync();
+            if (customerResponse.success)
+            {
+                return this.Ok(customerResponse.customers);
+            }
+            return this.BadRequest(customerResponse.errorMessage);
         }
 
         // GET api/<CustomerController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("api/[controller]/byname")]
+        public async Task<IActionResult> GetAsync([FromQuery] string name)
         {
-            return "value";
+            var customerResponse = await this.customerService.GetCustomersByName(name);
+            if (customerResponse.success)
+            {
+                return this.Ok(customerResponse.customers);
+            }
+            return this.BadRequest(customerResponse.errorMessage);
         }
 
         // POST api/<CustomerController>
         [HttpPost]
-        public async Task<IActionResult> CreateCustomerAsync([FromBody] Customer customer )
+        public async Task<IActionResult> CreateCustomerAsync([FromBody] Customer customer)
         {
-            await this.customerService.CreateCutomerAsync(customer);
-            return Created("localhost", customer);
+            var customerResponse = await this.customerService.CreateCutomerAsync(customer);
+            if (customerResponse.success)
+            {
+                return this.Created($"/customers/{customerResponse.customer.Id}", customerResponse.customer);
+            }
+            return this.BadRequest(customerResponse.errorMessage);
         }
 
-        // PUT api/<CustomerController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CustomerController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
